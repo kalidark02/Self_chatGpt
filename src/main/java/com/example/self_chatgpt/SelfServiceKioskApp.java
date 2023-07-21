@@ -1,6 +1,7 @@
 package com.example.self_chatgpt;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class SelfServiceKioskApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pilot.fxml"));
         primaryStage.setTitle("Self-Service Kiosk");
 
         VBox mainLayout = new VBox(10);
@@ -89,7 +92,7 @@ public class SelfServiceKioskApp extends Application {
             orderSummaryLabel.setText(new OrderConfirmationController(cart).getOrderSummary());
         });
 
-        Scene scene = new Scene(mainLayout, 400, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
