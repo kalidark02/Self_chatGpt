@@ -11,6 +11,27 @@ public class OrderConfirmationController {
         this.shoppingCart = shoppingCart;
     }
 
+    public String getOrderSummary() {
+        StringBuilder summary = new StringBuilder("Order Summary:\n");
+        Map<FoodItem, List<CustomizationChoice>> cartItems = shoppingCart.getCartItems();
+
+        for (Map.Entry<FoodItem, List<CustomizationChoice>> entry : cartItems.entrySet()) {
+            FoodItem item = entry.getKey();
+            summary.append("Food Item: ").append(item.getName()).append("\n");
+            summary.append("Description: ").append(item.getDescription()).append("\n");
+            summary.append("Price: $").append(item.getPrice()).append("\n");
+
+            List<CustomizationChoice> choices = entry.getValue();
+            summary.append("Customization Choices:\n");
+            for (CustomizationChoice choice : choices) {
+                summary.append("  - ").append(choice.getOption().getName()).append(" - Quantity: ").append(choice.getQuantity()).append("\n");
+            }
+
+            summary.append("\n");
+        }
+
+        return summary.toString();
+    }
     public void displayOrderConfirmation() {
         // Get the cart items and display the order confirmation to the user
         Map<FoodItem, List<CustomizationChoice>> cartItems = shoppingCart.getCartItems();
@@ -32,21 +53,7 @@ public class OrderConfirmationController {
         }
     }
 
-    public static void main(String[] args) {
-        // Test the OrderConfirmationController class
-        Category burgersCategory = new Category("Burgers");
-        FoodItem cheeseburger = new FoodItem("Cheeseburger", "Delicious cheeseburger", 5.99, burgersCategory);
 
-        CustomizationOption extraCheese = new CustomizationOption("Extra Cheese", 0.5);
-        CustomizationChoice choice1 = new CustomizationChoice(extraCheese, 2);
-
-        List<CustomizationChoice> customizationChoices = new ArrayList<>();
-        customizationChoices.add(choice1);
-
-        ShoppingCart cart = new ShoppingCart();
-        cart.addItem(cheeseburger, customizationChoices);
-
-        OrderConfirmationController orderConfirmationController = new OrderConfirmationController(cart);
-        orderConfirmationController.displayOrderConfirmation();
-    }
 }
+
+
