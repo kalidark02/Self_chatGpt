@@ -6,12 +6,10 @@ import java.util.List;
 public class Category {
     private String name;
     private List<FoodItem> foodItems;
-
     public Category(String name) {
         this.name = name;
         foodItems = new ArrayList<>();
     }
-
     public String getName() {
         return name;
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 public class SelfServiceKioskApp extends Application {
     private Menu menu;
     private ShoppingCart cart;
@@ -169,3 +170,135 @@ public class SelfServiceKioskApp extends Application {
 //    }
 //}
 //
+
+*/
+public class SelfServiceKioskApp {
+    public static void main(String[] args) {
+        // Créer le menu
+        Menu menu = new Menu("Menue cheese");
+
+        //Initialisation
+
+        initialisation(menu);
+
+        // Créer les catégories
+        Category burgersCategory = new Category("Burgers");
+        Category sidesCategory = new Category("Sides");
+        Category beveragesCategory = new Category("Beverages");
+
+        // Ajouter les catégories au menu
+        menu.addCategory(burgersCategory);
+        menu.addCategory(sidesCategory);
+        menu.addCategory(beveragesCategory);
+
+        // Créer les plats
+        FoodItem cheeseburger = new FoodItem("Cheeseburger", "Delicious cheeseburger", 5.99, burgersCategory);
+        FoodItem fries = new FoodItem("Fries", "Crispy fries", 2.99, sidesCategory);
+        FoodItem soda = new FoodItem("Soda", "Refreshing soda", 1.99, beveragesCategory);
+
+        // Ajouter les plats aux catégories
+        burgersCategory.addFoodItem(cheeseburger);
+        sidesCategory.addFoodItem(fries);
+        beveragesCategory.addFoodItem(soda);
+
+        // Ajouter des options de personnalisation pour le Cheeseburger
+        CustomizationOption baconOption = new CustomizationOption("Bacon", 1.50);
+        CustomizationOption onionsOption = new CustomizationOption("Onions", 0.75);
+        cheeseburger.addCustomizationOption(baconOption);
+        cheeseburger.addCustomizationOption(onionsOption);
+
+        // Ajouter des options de personnalisation pour les Fries
+        CustomizationOption largeSizeOption = new CustomizationOption("Large Size", 1.00);
+        fries.addCustomizationOption(largeSizeOption);
+
+        // Ajouter des options de personnalisation pour le Soda
+        CustomizationOption mediumSizeOption = new CustomizationOption("Medium Size", 0.50);
+        soda.addCustomizationOption(mediumSizeOption);
+
+        // Créer un panier d'achats
+        ShoppingCart cart = new ShoppingCart();
+
+        // Ajouter un plat au panier avec des options de personnalisation
+        List<CustomizationChoice> choices = new ArrayList<>();
+        choices.add(new CustomizationChoice(baconOption, 1));
+        choices.add(new CustomizationChoice(onionsOption, 2));
+        cart.addItem(cheeseburger, choices);
+
+        // Ajouter un autre plat au panier avec des options de personnalisation
+        choices.clear();
+        choices.add(new CustomizationChoice(largeSizeOption, 1));
+        cart.addItem(fries, choices);
+
+        // Afficher le résumé de la commande
+        OrderConfirmationController orderConfirmationController = new OrderConfirmationController(cart);
+        String orderSummary = orderConfirmationController.getOrderSummary();
+        System.out.println(orderSummary);
+
+        // Processus de paiement
+        PaymentController paymentController = new PaymentController(cart);
+        double totalAmount = cart.calculateTotalAmount();
+        System.out.println("\n"+totalAmount);
+        boolean paymentSuccess = paymentController.processPayment(totalAmount);
+
+        // Afficher la confirmation de commande
+        if (paymentSuccess) {
+            System.out.println("Commande confirmée ! Merci de votre achat.");
+        } else {
+            System.out.println("Erreur de paiement. Veuillez réessayer.");
+        }
+    }
+
+    private static void initialisation(Menu menu) {
+
+        // Créer les catégories
+        Category burgersCategory = new Category("Burgers");
+        Category sandwichsCategory = new Category("Sandwichs");
+
+        Category sidesCategory = new Category("Sides");
+        Category beveragesCategory = new Category("Beverages");
+        Category dessertCategory = new Category("Dessert");
+        Category assiettesCategory = new Category("Assiettes");
+        Category galettesCategory = new Category("Galettes");
+        Category accompagnementCategory = new Category("Accompagnement");
+        Category boissonsCategory = new Category("Boissons");
+        Category bieresCategory = new Category("Bières");
+
+        // Ajouter les catégories au menu
+        menu.addCategory(burgersCategory);
+        menu.addCategory(sidesCategory);
+        menu.addCategory(beveragesCategory);
+        menu.addCategory(sandwichsCategory);
+        menu.addCategory(dessertCategory);
+        menu.addCategory(assiettesCategory);
+        menu.addCategory(accompagnementCategory);
+        menu.addCategory(boissonsCategory);
+        menu.addCategory(galettesCategory);
+        menu.addCategory(bieresCategory);
+
+        // Créer les plats
+        FoodItem cheeseburger = new FoodItem("Cheeseburger", "Delicious cheeseburger", 5.99, burgersCategory);
+        FoodItem fries = new FoodItem("Fries", "Crispy fries", 2.99, sidesCategory);
+        FoodItem soda = new FoodItem("Soda", "Refreshing soda", 1.99, beveragesCategory);
+
+        // Ajouter les plats aux catégories
+        burgersCategory.addFoodItem(cheeseburger);
+        sidesCategory.addFoodItem(fries);
+        beveragesCategory.addFoodItem(soda);
+
+        // Ajouter des options de personnalisation pour le Cheeseburger
+        CustomizationOption baconOption = new CustomizationOption("Bacon", 1.50);
+        CustomizationOption onionsOption = new CustomizationOption("Onions", 0.75);
+        cheeseburger.addCustomizationOption(baconOption);
+        cheeseburger.addCustomizationOption(onionsOption);
+
+        // Ajouter des options de personnalisation pour les Fries
+        CustomizationOption largeSizeOption = new CustomizationOption("Large Size", 1.00);
+        fries.addCustomizationOption(largeSizeOption);
+
+        // Ajouter des options de personnalisation pour le Soda
+        CustomizationOption mediumSizeOption = new CustomizationOption("Medium Size", 0.50);
+        soda.addCustomizationOption(mediumSizeOption);
+
+
+    }
+}

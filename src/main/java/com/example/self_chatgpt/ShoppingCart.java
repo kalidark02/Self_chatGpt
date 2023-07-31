@@ -4,7 +4,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+public class ShoppingCart {
+    private Map<FoodItem, List<CustomizationChoice>> cartItems;
+
+    public ShoppingCart() {
+        cartItems = new HashMap<>();
+    }
+
+    public void addItem(FoodItem foodItem, List<CustomizationChoice> customizationChoices) {
+        cartItems.put(foodItem, customizationChoices);
+    }
+
+    public void removeItem(FoodItem foodItem) {
+        cartItems.remove(foodItem);
+    }
+
+    public Map<FoodItem, List<CustomizationChoice>> getCartItems() {
+        return cartItems;
+    }
+
+    public double calculateTotalAmount() {
+        double totalAmount = 0.0;
+        for (FoodItem foodItem : cartItems.keySet()) {
+            totalAmount += foodItem.getPrice();
+            List<CustomizationChoice> customizationChoices = cartItems.get(foodItem);
+            for (CustomizationChoice choice : customizationChoices) {
+                totalAmount += choice.getOption().getAdditionalCost() * choice.getQuantity();
+            }
+        }
+        return totalAmount;
+    }
+}
+
+/*
 public class ShoppingCart {
     private Map<FoodItem, List<CustomizationChoice>> cartItems;
 
@@ -61,3 +98,4 @@ public class ShoppingCart {
     }
 }
 
+*/
